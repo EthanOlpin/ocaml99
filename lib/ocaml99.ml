@@ -178,3 +178,10 @@ let split l len =
   in
   aux l [] len
 ;;
+
+(* Problem 18 *)
+let slice l s e =
+  let _, right = split l s in
+  let left, _ = split right (e - s + 1) in
+  left
+;;

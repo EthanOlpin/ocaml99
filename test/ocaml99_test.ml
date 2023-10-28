@@ -148,3 +148,10 @@ let%test_unit "split" =
     (split [ "a"; "b"; "c"; "d" ] 5)
     ([ "a"; "b"; "c"; "d" ], [])
 ;;
+
+(* Problem 18 *)
+let%test_unit "slice" =
+  [%test_eq: string list]
+    (slice [ "a"; "b"; "c"; "d"; "e"; "f"; "g"; "h"; "i"; "j" ] 2 6)
+    [ "c"; "d"; "e"; "f"; "g" ]
+;;
