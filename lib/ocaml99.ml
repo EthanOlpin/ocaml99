@@ -230,3 +230,25 @@ let range start last =
   in
   rev (aux start last [])
 ;;
+
+(* Problem 23 *)
+let rand_select l n =
+  let rand_pop l =
+    let rec pop_at l i left =
+      match l, i with
+      | [], _ -> failwith "could not pop random value from list"
+      | x :: rest, 0 -> x, concat (rev left) rest
+      | x :: rest, _ -> pop_at rest (i - 1) (x :: left)
+    in
+    pop_at l (Random.int (length l)) []
+  in
+  let rec aux l acc n =
+    match l, n with
+    | _, 0 -> acc
+    | [], _ -> failwith "did not find enough elements in list"
+    | l, _ ->
+      let el, rest = rand_pop l in
+      aux rest (el :: acc) (n - 1)
+  in
+  aux l [] n
+;;

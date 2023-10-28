@@ -189,3 +189,10 @@ let%test_unit "range" =
   [%test_eq: int list] (range 4 9) [ 4; 5; 6; 7; 8; 9 ];
   [%test_eq: int list] (range 9 4) [ 9; 8; 7; 6; 5; 4 ]
 ;;
+
+(* Problem 23 *)
+let%test_unit "rand_select" =
+  [%test_eq: string list]
+    (rand_select [ "a"; "b"; "c"; "d"; "e"; "f"; "g"; "h" ] 3)
+    [ "b"; "c"; "d" ]
+;;
