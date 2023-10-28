@@ -23,3 +23,13 @@ let rec at i l =
   | x :: _ when i = 1 -> Some x
   | _ -> None
 ;;
+
+(* Problem 04 *)
+let length l =
+  let rec aux l len =
+    match l with
+    | [] -> len
+    | _ :: rest -> aux rest (len + 1)
+  in
+  aux l 0
+;;

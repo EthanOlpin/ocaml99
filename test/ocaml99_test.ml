@@ -20,3 +20,9 @@ let%test_unit "at" =
   [%test_eq: string option] (at 3 [ "a"; "b"; "c"; "d"; "e" ]) (Some "c");
   [%test_eq: string option] (at 3 [ "a" ]) None
 ;;
+
+(* Problem 04 *)
+let%test_unit "length" =
+  [%test_eq: int] (length [ "a"; "b"; "c" ]) 3;
+  [%test_eq: int] (length []) 0
+;;
