@@ -252,3 +252,9 @@ let rand_select l n =
   in
   aux l [] n
 ;;
+
+(* Problem 24 *)
+let lotto_select n max =
+  let rng = range 1 max in
+  rand_select rng n
+;;

@@ -196,3 +196,9 @@ let%test_unit "rand_select" =
     (rand_select [ "a"; "b"; "c"; "d"; "e"; "f"; "g"; "h" ] 3)
     [ "b"; "c"; "d" ]
 ;;
+
+(* Problem 24 *)
+let%test_unit "lotto_select" =
+  [%test_eq: int list] (lotto_select 6 49) [ 41; 7; 8; 17; 26; 5 ]
+;;
+;;
