@@ -53,3 +53,18 @@ let rec list_eq a b =
 ;;
 
 let is_palindrome l = list_eq l (rev l)
+
+(* Problem 07 *)
+type 'a node =
+  | One of 'a
+  | Many of 'a node list
+
+let flatten n =
+  let rec aux n acc =
+    match n with
+    | One x :: rest -> aux rest (x :: acc)
+    | Many l :: rest -> aux rest (aux l acc)
+    | _ -> acc
+  in
+  aux n [] |> rev
+;;

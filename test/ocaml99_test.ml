@@ -37,3 +37,10 @@ let%test_unit "is_palindrome" =
   [%test_eq: bool] (is_palindrome [ "x"; "a"; "m"; "a"; "x" ]) true;
   [%test_eq: bool] (is_palindrome [ "a"; "b" ]) false
 ;;
+
+(* Problem 07 *)
+let%test_unit "flatten" =
+  [%test_eq: string list]
+    (flatten [ One "a"; Many [ One "b"; Many [ One "c"; One "d" ]; One "e" ] ])
+    [ "a"; "b"; "c"; "d"; "e" ]
+;;
