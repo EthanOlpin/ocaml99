@@ -221,3 +221,12 @@ let rec insert_at el i l =
     | x :: rest -> x :: insert_at el (i - 1) rest
     | [] -> [])
 ;;
+
+(* Problem 22 *)
+let range start last =
+  let dir = if start > last then -1 else 1 in
+  let rec aux start last acc =
+    if start = last then last :: acc else aux (start + dir) last (start :: acc)
+  in
+  rev (aux start last [])
+;;

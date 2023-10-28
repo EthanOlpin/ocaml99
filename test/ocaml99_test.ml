@@ -172,7 +172,7 @@ let%test_unit "remove_at" =
 ;;
 
 (* Problem 21 *)
-let%test_unit "remove_at" =
+let%test_unit "insert_at" =
   [%test_eq: string list]
     (insert_at "alfa" 1 [ "a"; "b"; "c"; "d" ])
     [ "a"; "alfa"; "b"; "c"; "d" ];
@@ -182,4 +182,10 @@ let%test_unit "remove_at" =
   [%test_eq: string list]
     (insert_at "alfa" 4 [ "a"; "b"; "c"; "d" ])
     [ "a"; "b"; "c"; "d"; "alfa" ]
+;;
+
+(* Problem 22 *)
+let%test_unit "range" =
+  [%test_eq: int list] (range 4 9) [ 4; 5; 6; 7; 8; 9 ];
+  [%test_eq: int list] (range 9 4) [ 9; 8; 7; 6; 5; 4 ]
 ;;
