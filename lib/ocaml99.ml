@@ -141,3 +141,19 @@ let rec duplicate l =
   | a :: rest -> a :: a :: duplicate rest
   | [] -> []
 ;;
+
+(* Problem 15 *)
+let replicate l count =
+  let rec clone el count acc =
+    if count = 0 then acc else clone el (count - 1) (el :: acc)
+  in
+  let rec aux l acc =
+    match l with
+    | [] -> acc
+    | x :: rest -> aux rest (clone x count acc)
+  in
+  match count with
+  | 0 -> []
+  | 1 -> l
+  | _ -> aux l [] |> rev
+;;

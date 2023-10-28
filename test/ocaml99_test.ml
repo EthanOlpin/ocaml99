@@ -124,3 +124,10 @@ let%test_unit "duplicate" =
     (duplicate [ "a"; "b"; "c"; "c"; "d" ])
     [ "a"; "a"; "b"; "b"; "c"; "c"; "c"; "c"; "d"; "d" ]
 ;;
+
+(* Problem 15 *)
+let%test_unit "replicate" =
+  [%test_eq: string list]
+    (replicate [ "a"; "b"; "c" ] 3)
+    [ "a"; "a"; "a"; "b"; "b"; "b"; "c"; "c"; "c" ]
+;;
