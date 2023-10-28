@@ -88,3 +88,16 @@ let pack l =
   in
   aux l [] |> rev
 ;;
+
+(* Problem 10 & Problem 13 *)
+let encode l =
+  let rec aux l acc curr curr_count =
+    match l with
+    | x :: rest when Poly.(x = curr) -> aux rest acc curr (curr_count + 1)
+    | x :: rest -> aux rest ((curr_count, curr) :: acc) x 1
+    | [] -> (curr_count, curr) :: acc
+  in
+  match l with
+  | x :: rest -> aux rest [] x 1 |> rev
+  | [] -> []
+;;

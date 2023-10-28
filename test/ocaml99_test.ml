@@ -81,3 +81,11 @@ let%test_unit "pack" =
     ; [ "e"; "e"; "e"; "e" ]
     ]
 ;;
+
+(* Problem 10 & Problem 13 *)
+let%test_unit "encode" =
+  [%test_eq: (int * string) list]
+    (encode
+       [ "a"; "a"; "a"; "a"; "b"; "c"; "c"; "a"; "a"; "d"; "e"; "e"; "e"; "e" ])
+    [ 4, "a"; 1, "b"; 2, "c"; 2, "a"; 1, "d"; 4, "e" ]
+;;
