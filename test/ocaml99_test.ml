@@ -31,3 +31,9 @@ let%test_unit "length" =
 let%test_unit "rev" =
   [%test_eq: string list] (rev [ "a"; "b"; "c" ]) [ "c"; "b"; "a" ]
 ;;
+
+(* Problem 06 *)
+let%test_unit "is_palindrome" =
+  [%test_eq: bool] (is_palindrome [ "x"; "a"; "m"; "a"; "x" ]) true;
+  [%test_eq: bool] (is_palindrome [ "a"; "b" ]) false
+;;

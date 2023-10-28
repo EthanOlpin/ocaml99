@@ -43,3 +43,13 @@ let rev l =
   in
   aux l []
 ;;
+
+(* Problem 06 *)
+let rec list_eq a b =
+  match a, b with
+  | [ x ], [ y ] when Poly.(x = y) -> true
+  | x :: rest_a, y :: rest_b when Poly.(x = y) -> list_eq rest_a rest_b
+  | _ -> false
+;;
+
+let is_palindrome l = list_eq l (rev l)
