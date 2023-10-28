@@ -170,3 +170,16 @@ let%test_unit "rotate" =
 let%test_unit "remove_at" =
   [%test_eq: string list] (remove_at 1 [ "a"; "b"; "c"; "d" ]) [ "a"; "c"; "d" ]
 ;;
+
+(* Problem 21 *)
+let%test_unit "remove_at" =
+  [%test_eq: string list]
+    (insert_at "alfa" 1 [ "a"; "b"; "c"; "d" ])
+    [ "a"; "alfa"; "b"; "c"; "d" ];
+  [%test_eq: string list]
+    (insert_at "alfa" 3 [ "a"; "b"; "c"; "d" ])
+    [ "a"; "b"; "c"; "alfa"; "d" ];
+  [%test_eq: string list]
+    (insert_at "alfa" 4 [ "a"; "b"; "c"; "d" ])
+    [ "a"; "b"; "c"; "d"; "alfa" ]
+;;

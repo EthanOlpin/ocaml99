@@ -208,3 +208,16 @@ let rec remove_at i l =
   | x :: rest -> x :: remove_at (i - 1) rest
   | [] -> []
 ;;
+
+(* Problem 21 *)
+let rec insert_at el i l =
+  if i = 0
+  then (
+    match l with
+    | x :: rest -> el :: x :: rest
+    | [] -> [ el ])
+  else (
+    match l with
+    | x :: rest -> x :: insert_at el (i - 1) rest
+    | [] -> [])
+;;
