@@ -131,3 +131,11 @@ let%test_unit "replicate" =
     (replicate [ "a"; "b"; "c" ] 3)
     [ "a"; "a"; "a"; "b"; "b"; "b"; "c"; "c"; "c" ]
 ;;
+
+(* Problem 16 *)
+let%test_unit "drop" =
+  [%test_eq: string list]
+    (drop [ "a"; "b"; "c"; "d"; "e"; "f"; "g"; "h"; "i"; "j" ] 3)
+    [ "a"; "b"; "d"; "e"; "g"; "h"; "j" ]
+;;
+

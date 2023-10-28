@@ -157,3 +157,14 @@ let replicate l count =
   | 1 -> l
   | _ -> aux l [] |> rev
 ;;
+
+(* Problem 16 *)
+let drop l n =
+  let rec aux l acc left =
+    match l, left with
+    | [], _ -> acc
+    | _ :: rest, 1 -> aux rest acc n
+    | x :: rest, left -> aux rest (x :: acc) (left - 1)
+  in
+  aux l [] n |> rev
+;;
