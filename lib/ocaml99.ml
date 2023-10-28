@@ -76,3 +76,15 @@ let rec compress l =
     if Poly.(a = b) then compress (a :: rest) else a :: compress (b :: rest)
   | l -> l
 ;;
+
+(* Problem 09 *)
+let pack l =
+  let rec aux l acc =
+    match l, acc with
+    | a :: rest_a, (b :: rest_b) :: rest_acc when Poly.(a = b) ->
+      aux rest_a ((a :: b :: rest_b) :: rest_acc)
+    | a :: rest_a, _ -> aux rest_a ([ a ] :: acc)
+    | [], _ -> acc
+  in
+  aux l [] |> rev
+;;

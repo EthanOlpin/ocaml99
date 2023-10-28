@@ -52,3 +52,32 @@ let%test_unit "compress" =
        [ "a"; "a"; "a"; "a"; "b"; "c"; "c"; "a"; "a"; "d"; "e"; "e"; "e"; "e" ])
     [ "a"; "b"; "c"; "a"; "d"; "e" ]
 ;;
+
+(* Problem 09 *)
+let%test_unit "pack" =
+  [%test_eq: string list list]
+    (pack
+       [ "a"
+       ; "a"
+       ; "a"
+       ; "a"
+       ; "b"
+       ; "c"
+       ; "c"
+       ; "a"
+       ; "a"
+       ; "d"
+       ; "d"
+       ; "e"
+       ; "e"
+       ; "e"
+       ; "e"
+       ])
+    [ [ "a"; "a"; "a"; "a" ]
+    ; [ "b" ]
+    ; [ "c"; "c" ]
+    ; [ "a"; "a" ]
+    ; [ "d"; "d" ]
+    ; [ "e"; "e"; "e"; "e" ]
+    ]
+;;
