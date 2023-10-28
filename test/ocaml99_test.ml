@@ -89,3 +89,17 @@ let%test_unit "encode" =
        [ "a"; "a"; "a"; "a"; "b"; "c"; "c"; "a"; "a"; "d"; "e"; "e"; "e"; "e" ])
     [ 4, "a"; 1, "b"; 2, "c"; 2, "a"; 1, "d"; 4, "e" ]
 ;;
+
+(* Problem 11 *)
+let%test_unit "modified_encode" =
+  [%test_eq: string rle list]
+    (modified_encode
+       [ "a"; "a"; "a"; "a"; "b"; "c"; "c"; "a"; "a"; "d"; "e"; "e"; "e"; "e" ])
+    [ Many (4, "a")
+    ; One "b"
+    ; Many (2, "c")
+    ; Many (2, "a")
+    ; One "d"
+    ; Many (4, "e")
+    ]
+;;

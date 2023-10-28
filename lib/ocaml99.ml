@@ -101,3 +101,22 @@ let encode l =
   | x :: rest -> aux rest [] x 1 |> rev
   | [] -> []
 ;;
+
+(* Problem 11 *)
+type 'a rle =
+  | One of 'a
+  | Many of int * 'a
+[@@deriving sexp, compare]
+
+let modified_encode l =
+  let to_rle el count = if count > 1 then Many (count, el) else One el in
+  let rec aux l acc curr curr_count =
+    match l with
+    | x :: rest when Poly.(x = curr) -> aux rest acc curr (curr_count + 1)
+    | x :: rest -> aux rest (to_rle curr curr_count :: acc) x 1
+    | [] -> to_rle curr curr_count :: acc
+  in
+  match l with
+  | x :: rest -> aux rest [] x 1 |> rev
+  | [] -> []
+;;
