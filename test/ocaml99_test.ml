@@ -157,11 +157,16 @@ let%test_unit "slice" =
 ;;
 
 (* Problem 19 *)
-let%test_unit "slice" =
+let%test_unit "rotate" =
   [%test_eq: string list]
     (rotate [ "a"; "b"; "c"; "d"; "e"; "f"; "g"; "h" ] 3)
     [ "d"; "e"; "f"; "g"; "h"; "a"; "b"; "c" ];
   [%test_eq: string list]
     (rotate [ "a"; "b"; "c"; "d"; "e"; "f"; "g"; "h" ] (-2))
     [ "g"; "h"; "a"; "b"; "c"; "d"; "e"; "f" ]
+;;
+
+(* Problem 20 *)
+let%test_unit "remove_at" =
+  [%test_eq: string list] (remove_at 1 [ "a"; "b"; "c"; "d" ]) [ "a"; "c"; "d" ]
 ;;

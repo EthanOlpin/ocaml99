@@ -187,15 +187,24 @@ let slice l s e =
 ;;
 
 (* Problem 19 *)
+let rec concat a b =
+  match a with
+  | [] -> b
+  | x :: rest -> x :: concat rest b
+;;
+
 let rec rotate l n =
-  let rec concat a b =
-    match a with
-    | [] -> b
-    | x :: rest -> x :: concat rest b
-  in
   if n >= 0
   then (
     let left, right = split l n in
     concat right left)
   else rev (rotate (rev l) (-1 * n))
+;;
+
+(* Problem 20 *)
+let rec remove_at i l =
+  match l with
+  | _ :: rest when i = 0 -> rest
+  | x :: rest -> x :: remove_at (i - 1) rest
+  | [] -> []
 ;;
