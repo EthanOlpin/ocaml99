@@ -168,3 +168,13 @@ let drop l n =
   in
   aux l [] n |> rev
 ;;
+
+(* Problem 17 *)
+let split l len =
+  let rec aux l acc len =
+    match l, len with
+    | [], _ | _, 0 -> acc |> rev, l
+    | x :: rest, rem_len -> aux rest (x :: acc) (rem_len - 1)
+  in
+  aux l [] len
+;;

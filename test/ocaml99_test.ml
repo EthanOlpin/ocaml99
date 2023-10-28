@@ -139,3 +139,12 @@ let%test_unit "drop" =
     [ "a"; "b"; "d"; "e"; "g"; "h"; "j" ]
 ;;
 
+(* Problem 17 *)
+let%test_unit "split" =
+  [%test_eq: string list * string list]
+    (split [ "a"; "b"; "c"; "d"; "e"; "f"; "g"; "h"; "i"; "j" ] 3)
+    ([ "a"; "b"; "c" ], [ "d"; "e"; "f"; "g"; "h"; "i"; "j" ]);
+  [%test_eq: string list * string list]
+    (split [ "a"; "b"; "c"; "d" ] 5)
+    ([ "a"; "b"; "c"; "d" ], [])
+;;
