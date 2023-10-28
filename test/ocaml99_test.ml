@@ -26,3 +26,8 @@ let%test_unit "length" =
   [%test_eq: int] (length [ "a"; "b"; "c" ]) 3;
   [%test_eq: int] (length []) 0
 ;;
+
+(* Problem 05 *)
+let%test_unit "rev" =
+  [%test_eq: string list] (rev [ "a"; "b"; "c" ]) [ "c"; "b"; "a" ]
+;;

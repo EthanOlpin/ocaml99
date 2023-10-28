@@ -33,3 +33,13 @@ let length l =
   in
   aux l 0
 ;;
+
+(* Problem 05 *)
+let rev l =
+  let rec aux l acc =
+    match l with
+    | [] -> acc
+    | x :: rest -> aux rest (x :: acc)
+  in
+  aux l []
+;;
