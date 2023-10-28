@@ -155,3 +155,13 @@ let%test_unit "slice" =
     (slice [ "a"; "b"; "c"; "d"; "e"; "f"; "g"; "h"; "i"; "j" ] 2 6)
     [ "c"; "d"; "e"; "f"; "g" ]
 ;;
+
+(* Problem 19 *)
+let%test_unit "slice" =
+  [%test_eq: string list]
+    (rotate [ "a"; "b"; "c"; "d"; "e"; "f"; "g"; "h" ] 3)
+    [ "d"; "e"; "f"; "g"; "h"; "a"; "b"; "c" ];
+  [%test_eq: string list]
+    (rotate [ "a"; "b"; "c"; "d"; "e"; "f"; "g"; "h" ] (-2))
+    [ "g"; "h"; "a"; "b"; "c"; "d"; "e"; "f" ]
+;;

@@ -185,3 +185,17 @@ let slice l s e =
   let left, _ = split right (e - s + 1) in
   left
 ;;
+
+(* Problem 19 *)
+let rec rotate l n =
+  let rec concat a b =
+    match a with
+    | [] -> b
+    | x :: rest -> x :: concat rest b
+  in
+  if n >= 0
+  then (
+    let left, right = split l n in
+    concat right left)
+  else rev (rotate (rev l) (-1 * n))
+;;
