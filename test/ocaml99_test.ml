@@ -117,3 +117,10 @@ let%test_unit "decode" =
        ])
     [ "a"; "a"; "a"; "a"; "b"; "c"; "c"; "a"; "a"; "d"; "e"; "e"; "e"; "e" ]
 ;;
+
+(* Problem 14 *)
+let%test_unit "duplicate" =
+  [%test_eq: string list]
+    (duplicate [ "a"; "b"; "c"; "c"; "d" ])
+    [ "a"; "a"; "b"; "b"; "c"; "c"; "c"; "c"; "d"; "d" ]
+;;

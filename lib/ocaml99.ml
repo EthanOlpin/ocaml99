@@ -134,3 +134,10 @@ let decode l =
   in
   aux l [] |> rev
 ;;
+
+(* Problem 14 *)
+let rec duplicate l =
+  match l with
+  | a :: rest -> a :: a :: duplicate rest
+  | [] -> []
+;;
