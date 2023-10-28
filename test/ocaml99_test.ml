@@ -44,3 +44,11 @@ let%test_unit "flatten" =
     (flatten [ One "a"; Many [ One "b"; Many [ One "c"; One "d" ]; One "e" ] ])
     [ "a"; "b"; "c"; "d"; "e" ]
 ;;
+
+(* Problem 08 *)
+let%test_unit "compress" =
+  [%test_eq: string list]
+    (compress
+       [ "a"; "a"; "a"; "a"; "b"; "c"; "c"; "a"; "a"; "d"; "e"; "e"; "e"; "e" ])
+    [ "a"; "b"; "c"; "a"; "d"; "e" ]
+;;

@@ -68,3 +68,11 @@ let flatten n =
   in
   aux n [] |> rev
 ;;
+
+(* Problem 08 *)
+let rec compress l =
+  match l with
+  | a :: b :: rest ->
+    if Poly.(a = b) then compress (a :: rest) else a :: compress (b :: rest)
+  | l -> l
+;;
