@@ -1,0 +1,6 @@
+(library
+ (public_name ocaml99)
+ (name ocaml99)
+ (libraries base stdio)
+ (preprocess
+  (pps ppx_jane)))
