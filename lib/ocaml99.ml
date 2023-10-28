@@ -15,3 +15,11 @@ let rec last_two l =
   | [ a; b ] -> Some (a, b)
   | _ :: rest -> last_two rest
 ;;
+
+(* Problem 03 *)
+let rec at i l =
+  match l with
+  | _ :: rest when i > 1 -> at (i - 1) rest
+  | x :: _ when i = 1 -> Some x
+  | _ -> None
+;;
