@@ -120,3 +120,17 @@ let modified_encode l =
   | x :: rest -> aux rest [] x 1 |> rev
   | [] -> []
 ;;
+
+(* Problem 12 *)
+let decode l =
+  let rec expand el count acc =
+    if count = 0 then acc else expand el (count - 1) (el :: acc)
+  in
+  let rec aux l acc =
+    match l with
+    | One x :: rest -> aux rest (x :: acc)
+    | Many (count, x) :: rest -> aux rest (expand x count acc)
+    | [] -> acc
+  in
+  aux l [] |> rev
+;;

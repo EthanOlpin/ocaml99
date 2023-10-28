@@ -103,3 +103,17 @@ let%test_unit "modified_encode" =
     ; Many (4, "e")
     ]
 ;;
+
+(* Problem 12 *)
+let%test_unit "decode" =
+  [%test_eq: string list]
+    (decode
+       [ Many (4, "a")
+       ; One "b"
+       ; Many (2, "c")
+       ; Many (2, "a")
+       ; One "d"
+       ; Many (4, "e")
+       ])
+    [ "a"; "a"; "a"; "a"; "b"; "c"; "c"; "a"; "a"; "d"; "e"; "e"; "e"; "e" ]
+;;
