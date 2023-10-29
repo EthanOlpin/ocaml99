@@ -258,3 +258,6 @@ let lotto_select n max =
   let rng = range 1 max in
   rand_select rng n
 ;;
+
+(* Problem 25 *)
+let permutation l = rand_select l (length l)

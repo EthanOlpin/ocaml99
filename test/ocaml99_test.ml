@@ -201,4 +201,10 @@ let%test_unit "rand_select" =
 let%test_unit "lotto_select" =
   [%test_eq: int list] (lotto_select 6 49) [ 41; 7; 8; 17; 26; 5 ]
 ;;
+
+(* Problem 25 *)
+let%test_unit "permutation" =
+  [%test_eq: string list]
+    (permutation [ "a"; "b"; "c"; "d"; "e"; "f" ])
+    [ "c"; "e"; "a"; "b"; "f"; "d" ]
 ;;
