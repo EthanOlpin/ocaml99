@@ -208,3 +208,16 @@ let%test_unit "permutation" =
     (permutation [ "a"; "b"; "c"; "d"; "e"; "f" ])
     [ "c"; "e"; "a"; "b"; "f"; "d" ]
 ;;
+
+(* Problem 26 *)
+let%test_unit "extract" =
+  [%test_eq: string list list]
+    (extract 2 [ "a"; "b"; "c"; "d" ])
+    [ [ "a"; "b" ]
+    ; [ "a"; "c" ]
+    ; [ "a"; "d" ]
+    ; [ "b"; "c" ]
+    ; [ "b"; "d" ]
+    ; [ "c"; "d" ]
+    ]
+;;

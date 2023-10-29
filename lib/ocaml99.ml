@@ -261,3 +261,24 @@ let lotto_select n max =
 
 (* Problem 25 *)
 let permutation l = rand_select l (length l)
+
+(* Problem 26 *)
+let rec extract n l =
+  let prepend_all el ls =
+    let rec aux el ls acc =
+      match ls with
+      | x :: rest -> aux el rest ((el :: x) :: acc)
+      | [] -> rev acc
+    in
+    aux el ls []
+  in
+  let rec aux n l acc =
+    match n, l with
+    | 0, _ -> [ [] ]
+    | _, [] -> acc
+    | _, x :: rest ->
+      let combs = prepend_all x (extract (n - 1) rest) in
+      aux n rest (concat acc combs)
+  in
+  aux n l []
+;;
