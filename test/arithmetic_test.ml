@@ -20,3 +20,8 @@ let%test_unit "coprime" =
   [%test_eq: bool] (coprime 20536 7826) false
 ;;
 
+(* Problem 34 *)
+let%test_unit "phi" =
+  [%test_eq: int] (phi 10) 4;
+  [%test_eq: int] (phi 13) 12
+;;

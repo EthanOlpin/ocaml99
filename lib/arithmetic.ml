@@ -12,3 +12,14 @@ let rec gcd a b = if b = 0 then a else gcd b (a % b)
 (* Problem 33 *)
 let coprime a b = gcd a b = 1
 
+(* Problem 34 *)
+let phi x =
+  let rec aux acc i =
+    if i >= x
+    then acc
+    else (
+      let acc = if coprime x i then acc + 1 else acc in
+      aux acc (i + 1))
+  in
+  aux 0 1
+;;
