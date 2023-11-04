@@ -282,3 +282,52 @@ let rec extract n l =
   in
   aux n l []
 ;;
+
+(* Problem 27 *)
+type 'a sized_list =
+  { space : int
+  ; items : 'a list
+  }
+
+let sum l = List.fold l ~init:0 ~f:(fun x total -> total + x)
+
+let group l sizes =
+  (* Return all possible groupings when inserting el into each open group of a
+     given grouping, includes the grouping where el is not applied to any group*)
+  let extend el grouping =
+    let { space = total_space; items = groups } = grouping in
+    let rec aux groups prev acc =
+      match groups with
+      | ({ space; items } as group) :: rest when space > 0 ->
+        let new_group = { space = space - 1; items = el :: items } in
+        let new_grouping =
+          { space = total_space - 1
+          ; items = List.append prev (new_group :: rest)
+          }
+        in
+        aux rest (group :: prev) (new_grouping :: acc)
+      | group :: rest -> aux rest (group :: prev) acc
+      | [] -> acc
+    in
+    aux groups [] [ grouping ]
+  in
+  let rec aux l groupings acc =
+    match l with
+    | el :: rest ->
+      let full, incomplete =
+        List.map groupings ~f:(fun grouping -> extend el grouping)
+        |> List.concat
+        |> List.partition_tf ~f:(fun grouping -> grouping.space = 0)
+      in
+      aux rest incomplete (List.append acc full)
+    | [] -> acc
+  in
+  let total_space = sum sizes in
+  let initial_groups =
+    List.map sizes ~f:(fun size -> { space = size; items = [] })
+  in
+  let initial_grouping = { space = total_space; items = initial_groups } in
+  let full_groupings = aux l [ initial_grouping ] [] in
+  List.map full_groupings ~f:(fun grouping ->
+    List.map grouping.items ~f:(fun group -> rev group.items))
+;;
