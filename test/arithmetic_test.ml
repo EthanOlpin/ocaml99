@@ -25,3 +25,7 @@ let%test_unit "phi" =
   [%test_eq: int] (phi 10) 4;
   [%test_eq: int] (phi 13) 12
 ;;
+
+(* Problem 35 *)
+let%test_unit "factors" = [%test_eq: int list] (factors 315) [ 3; 3; 5; 7 ]
+

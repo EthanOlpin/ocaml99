@@ -23,3 +23,21 @@ let phi x =
   in
   aux 0 1
 ;;
+
+(* Problem 35 *)
+let divmod a b =
+  let quotient = a / b in
+  let remainder = a - (quotient * b) in
+  quotient, remainder
+;;
+
+let rec factors n =
+  let rec aux i =
+    if n = 1
+    then []
+    else (
+      let q, r = divmod n i in
+      if r = 0 then i :: factors q else aux (i + 1))
+  in
+  aux 2
+;;
