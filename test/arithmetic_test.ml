@@ -13,3 +13,10 @@ let%test_unit "gcd" =
   [%test_eq: int] (gcd 13 27) 1;
   [%test_eq: int] (gcd 20536 7826) 2
 ;;
+
+(* Problem 33 *)
+let%test_unit "coprime" =
+  [%test_eq: bool] (coprime 13 27) true;
+  [%test_eq: bool] (coprime 20536 7826) false
+;;
+

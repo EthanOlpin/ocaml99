@@ -8,3 +8,7 @@ let is_prime x =
 
 (* Problem 32 *)
 let rec gcd a b = if b = 0 then a else gcd b (a % b)
+
+(* Problem 33 *)
+let coprime a b = gcd a b = 1
+
