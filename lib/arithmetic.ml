@@ -52,3 +52,9 @@ let factors_multiplicity n =
   in
   List.rev (aux (factors n) 1 [])
 ;;
+
+(* Problem 37 *)
+let phi_improved n =
+  factors_multiplicity n
+  |> List.fold ~init:1 ~f:(fun acc (p, m) -> acc * (p - 1) * (p ** (m - 1)))
+;;

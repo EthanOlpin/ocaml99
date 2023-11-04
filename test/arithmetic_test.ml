@@ -33,3 +33,9 @@ let%test_unit "factors" = [%test_eq: int list] (factors 315) [ 3; 3; 5; 7 ]
 let%test_unit "factors_multiplicity" =
   [%test_eq: (int * int) list] (factors_multiplicity 315) [ 3, 2; 5, 1; 7, 1 ]
 ;;
+
+(* Problem 37 *)
+let%test_unit "phi_improved" =
+  [%test_eq: int] (phi_improved 10) 4;
+  [%test_eq: int] (phi_improved 13) 12
+;;
