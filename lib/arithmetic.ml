@@ -41,3 +41,14 @@ let rec factors n =
   in
   aux 2
 ;;
+
+(* Problem 36 *)
+let factors_multiplicity n =
+  let rec aux factors multiplicity acc =
+    match factors with
+    | a :: (b :: _ as rest) when a = b -> aux rest (multiplicity + 1) acc
+    | x :: rest -> aux rest 1 ((x, multiplicity) :: acc)
+    | [] -> acc
+  in
+  List.rev (aux (factors n) 1 [])
+;;
