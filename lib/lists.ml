@@ -331,3 +331,24 @@ let group l sizes =
   List.map full_groupings ~f:(fun grouping ->
     List.map grouping.items ~f:(fun group -> rev group.items))
 ;;
+
+(* Problem 28 *)
+let length_sort l =
+  List.(
+    map l ~f:(fun l -> length l, l)
+    |> sort ~compare:(fun (size_a, _) (size_b, _) -> Int.compare size_a size_b)
+    |> map ~f:snd)
+;;
+
+let counts =
+  Hashtbl.Poly.group ~get_key:Fn.id ~get_data:(Fn.const 1) ~combine:Int.( + )
+;;
+
+let frequency_sort l =
+  let list_lengths = List.map l ~f:(fun l -> length l, l) in
+  let frequencies = counts (List.map list_lengths ~f:fst) in
+  let freq size = Hashtbl.find frequencies size |> Option.value ~default:0 in
+  List.sort list_lengths ~compare:(fun (size_a, _) (size_b, _) ->
+    Int.compare (freq size_a) (freq size_b))
+  |> List.map ~f:snd
+;;

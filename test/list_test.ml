@@ -240,3 +240,46 @@ let%test_unit "group" =
     ; [ [ "b"; "c" ]; [ "d" ] ]
     ]
 ;;
+
+(* Problem 28 *)
+let%test_unit "length_sort" =
+  [%test_eq: string list list]
+    (length_sort
+       [ [ "a"; "b"; "c" ]
+       ; [ "d"; "e" ]
+       ; [ "f"; "g"; "h" ]
+       ; [ "d"; "e" ]
+       ; [ "i"; "j"; "k"; "l" ]
+       ; [ "m"; "n" ]
+       ; [ "o" ]
+       ])
+    [ [ "o" ]
+    ; [ "d"; "e" ]
+    ; [ "d"; "e" ]
+    ; [ "m"; "n" ]
+    ; [ "a"; "b"; "c" ]
+    ; [ "f"; "g"; "h" ]
+    ; [ "i"; "j"; "k"; "l" ]
+    ]
+;;
+
+let%test_unit "frequency_sort" =
+  [%test_eq: string list list]
+    (frequency_sort
+       [ [ "a"; "b"; "c" ]
+       ; [ "d"; "e" ]
+       ; [ "f"; "g"; "h" ]
+       ; [ "d"; "e" ]
+       ; [ "i"; "j"; "k"; "l" ]
+       ; [ "m"; "n" ]
+       ; [ "o" ]
+       ])
+    [ [ "i"; "j"; "k"; "l" ]
+    ; [ "o" ]
+    ; [ "a"; "b"; "c" ]
+    ; [ "f"; "g"; "h" ]
+    ; [ "d"; "e" ]
+    ; [ "d"; "e" ]
+    ; [ "m"; "n" ]
+    ]
+;;
