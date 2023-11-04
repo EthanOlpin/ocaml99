@@ -1,5 +1,5 @@
 open Base
-open Ocaml99
+open Ocaml99.Lists
 
 (* Problem 01 *)
 let%test_unit "last" =
