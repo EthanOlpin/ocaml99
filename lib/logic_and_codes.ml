@@ -27,3 +27,32 @@ let table2 a b expr =
   let eval a_val b_val = a_val, b_val, evaluate2 a a_val b b_val expr in
   [ eval true true; eval true false; eval false true; eval false false ]
 ;;
+
+(* Problem 48 *)
+let evaluate variables expr =
+  let rec aux expr =
+    match expr with
+    | Var x -> List.Assoc.find_exn variables ~equal:String.equal x
+    | And (l, r) -> aux l && aux r
+    | Or (l, r) -> aux l || aux r
+    | Not expr -> not (aux expr)
+  in
+  aux expr
+;;
+
+let rec bool_combinations len =
+  if len = 0
+  then [ [] ]
+  else (
+    let prepend_all x = List.map ~f:(fun l -> x :: l) in
+    let combs = bool_combinations (len - 1) in
+    prepend_all true combs @ prepend_all false combs)
+;;
+
+let table variables expr =
+  let len = List.length variables in
+  let combs = bool_combinations len in
+  List.map combs ~f:(fun comb ->
+    let variables = List.zip_exn variables comb in
+    variables, evaluate variables expr)
+;;

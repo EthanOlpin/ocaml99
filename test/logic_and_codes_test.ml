@@ -11,3 +11,30 @@ let%test_unit "table2" =
     ; false, false, false
     ]
 ;;
+
+(* Problem 48 *)
+let%test_unit "table" =
+  [%test_eq: ((string * bool) list * bool) list]
+    (table [ "a"; "b" ] (And (Var "a", Or (Var "a", Var "b"))))
+    [ [ "a", true; "b", true ], true
+    ; [ "a", true; "b", false ], true
+    ; [ "a", false; "b", true ], false
+    ; [ "a", false; "b", false ], false
+    ];
+  [%test_eq: ((string * bool) list * bool) list]
+    (let a = Var "a"
+     and b = Var "b"
+     and c = Var "c" in
+     table
+       [ "a"; "b"; "c" ]
+       (Or (And (a, Or (b, c)), Or (And (a, b), And (a, c)))))
+    [ [ "a", true; "b", true; "c", true ], true
+    ; [ "a", true; "b", true; "c", false ], true
+    ; [ "a", true; "b", false; "c", true ], true
+    ; [ "a", true; "b", false; "c", false ], false
+    ; [ "a", false; "b", true; "c", true ], false
+    ; [ "a", false; "b", true; "c", false ], false
+    ; [ "a", false; "b", false; "c", true ], false
+    ; [ "a", false; "b", false; "c", false ], false
+    ]
+;;
