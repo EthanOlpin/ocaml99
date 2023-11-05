@@ -70,3 +70,11 @@ let all_primes start stop =
   in
   List.rev (aux start [])
 ;;
+
+(* Problem 40 *)
+let goldbach x =
+  let rec aux n =
+    if is_prime n && is_prime (x - n) then n, x - n else aux (n + 1)
+  in
+  aux 2
+;;

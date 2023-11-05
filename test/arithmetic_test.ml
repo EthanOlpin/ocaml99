@@ -44,3 +44,6 @@ let%test_unit "phi_improved" =
 let%test_unit "all_primes" =
   [%test_eq: int] (List.length (all_primes 2 7920)) 1000
 ;;
+
+(* Problem 40 *)
+let%test_unit "goldbach" = [%test_eq: int * int] (goldbach 28) (5, 23)
