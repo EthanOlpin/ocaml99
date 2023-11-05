@@ -73,8 +73,29 @@ let all_primes start stop =
 
 (* Problem 40 *)
 let goldbach x =
-  let rec aux n =
-    if is_prime n && is_prime (x - n) then n, x - n else aux (n + 1)
-  in
-  aux 2
+  if x < 4
+  then failwith "Called goldbach with a number less than 4"
+  else (
+    let rec aux n =
+      if is_prime n && is_prime (x - n) then n, x - n else aux (n + 1)
+    in
+    aux 2)
+;;
+
+(* Problem 41 *)
+let goldbach_list low high =
+  (* Goldbach's conjecture only applies to even numbers greater than 2*)
+  let low = max low 4 in
+  if low >= high
+  then []
+  else (
+    let rec aux n acc =
+      if n > high then acc else aux (n + 2) ((n, goldbach n) :: acc)
+    in
+    List.rev (aux (if low % 2 = 0 then low else low + 1) []))
+;;
+
+let goldbach_limit low high limit =
+  goldbach_list low high
+  |> List.filter ~f:(fun (_, (a, b)) -> a > limit && b > limit)
 ;;
