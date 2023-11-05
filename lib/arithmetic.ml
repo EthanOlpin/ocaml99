@@ -58,3 +58,15 @@ let phi_improved n =
   factors_multiplicity n
   |> List.fold ~init:1 ~f:(fun acc (p, m) -> acc * (p - 1) * (p ** (m - 1)))
 ;;
+
+(* Problem 39 *)
+let all_primes start stop =
+  let rec aux n primes =
+    if n >= stop
+    then primes
+    else (
+      let primes = if is_prime n then n :: primes else primes in
+      aux (n + 1) primes)
+  in
+  List.rev (aux start [])
+;;

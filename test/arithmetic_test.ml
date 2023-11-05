@@ -39,3 +39,8 @@ let%test_unit "phi_improved" =
   [%test_eq: int] (phi_improved 10) 4;
   [%test_eq: int] (phi_improved 13) 12
 ;;
+
+(* Problem 39 *)
+let%test_unit "all_primes" =
+  [%test_eq: int] (List.length (all_primes 2 7920)) 1000
+;;
