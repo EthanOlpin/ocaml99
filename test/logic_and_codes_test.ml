@@ -38,3 +38,12 @@ let%test_unit "table" =
     ; [ "a", false; "b", false; "c", false ], false
     ]
 ;;
+
+(* Problem 49 *)
+let%test_unit "gray" =
+  [%test_eq: string list] (gray 1) [ "0"; "1" ];
+  [%test_eq: string list] (gray 2) [ "00"; "01"; "11"; "10" ];
+  [%test_eq: string list]
+    (gray 3)
+    [ "000"; "001"; "011"; "010"; "110"; "111"; "101"; "100" ]
+;;

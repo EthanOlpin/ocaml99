@@ -56,3 +56,13 @@ let table variables expr =
     let variables = List.zip_exn variables comb in
     variables, evaluate variables expr)
 ;;
+
+(* Problem 49 *)
+let rec gray n =
+  if n = 0
+  then [ "" ]
+  else (
+    let prepend_all x = List.map ~f:(fun s -> x ^ s) in
+    let sub_list = gray (n - 1) in
+    prepend_all "0" sub_list @ prepend_all "1" (List.rev sub_list))
+;;
