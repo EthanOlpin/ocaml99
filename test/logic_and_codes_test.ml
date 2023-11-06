@@ -47,3 +47,23 @@ let%test_unit "gray" =
     (gray 3)
     [ "000"; "001"; "011"; "010"; "110"; "111"; "101"; "100" ]
 ;;
+
+(* Problem 50 *)
+let%test_unit "MinHeap" =
+  let heap = MinHeap.create ~len:1 0 Int.compare in
+  MinHeap.push heap 5;
+  MinHeap.push heap 3;
+  MinHeap.push heap 4;
+  [%test_eq: int] (MinHeap.pop heap) 3;
+  [%test_eq: int] (MinHeap.pop heap) 4;
+  [%test_eq: int] (MinHeap.pop heap) 5
+;;
+
+let%test_unit "huffman" =
+  [%test_eq: (string * string) list]
+    (huffman [ "a", 45; "b", 13; "c", 12; "d", 16; "e", 9; "f", 5 ])
+    [ "a", "0"; "c", "100"; "b", "101"; "f", "1100"; "e", "1101"; "d", "111" ];
+  [%test_eq: (string * string) list]
+    (huffman [ "a", 10; "b", 15; "c", 30; "d", 16; "e", 29 ])
+    [ "d", "00"; "a", "010"; "b", "011"; "e", "10"; "c", "11" ]
+;;
