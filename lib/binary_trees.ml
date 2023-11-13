@@ -96,3 +96,18 @@ let internals tree =
   in
   aux [] tree
 ;;
+
+(* Problem 62B *)
+let at_level tree n =
+  let rec aux tree level_i acc =
+    match tree with
+    | Empty -> []
+    | Node (x, left, right) ->
+      if level_i = n
+      then x :: acc
+      else (
+        let level_i = level_i + 1 in
+        aux left level_i (aux right level_i acc))
+  in
+  aux tree 1 []
+;;

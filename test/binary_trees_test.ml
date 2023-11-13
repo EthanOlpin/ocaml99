@@ -108,3 +108,9 @@ let%test_unit "internals" =
   [%test_eq: char list] (internals (Node ('a', Empty, Empty))) [];
   [%test_eq: char list] (internals example_tree) [ 'b'; 'a'; 'c'; 'f' ]
 ;;
+
+(* Problem 62B*)
+let%test_unit "at_level" =
+  [%test_eq: char list] (at_level example_tree 2) [ 'b'; 'c' ];
+  [%test_eq: char list] (at_level example_tree 5) []
+;;
