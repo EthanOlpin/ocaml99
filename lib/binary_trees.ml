@@ -36,3 +36,21 @@ let is_symmetric tree =
   | Node (_, left, right) -> is_mirror left right
   | Empty -> true
 ;;
+
+(* Problem 57 *)
+let construct vals =
+  let rec insert parent new_val =
+    match parent with
+    | Empty -> Node (new_val, Empty, Empty)
+    | Node (x, l, r) ->
+      if new_val < x
+      then Node (x, insert l new_val, r)
+      else Node (x, l, insert r new_val)
+  in
+  let rec insert_all root vals =
+    match vals with
+    | [] -> root
+    | x :: rest -> insert_all (insert root x) rest
+  in
+  insert_all Empty vals
+;;

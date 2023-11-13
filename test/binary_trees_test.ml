@@ -31,3 +31,15 @@ let%test_unit "is_symmetric" =
   [%test_eq: bool] (is_symmetric (Node (0, leaf, Empty))) false;
   [%test_eq: bool] (is_symmetric (Node (0, leaf, leaf))) true
 ;;
+
+(* Problem 57 *)
+let%test_unit "construct" =
+  [%test_eq: int binary_tree]
+    (construct [ 3; 2; 5; 7; 1 ])
+    (Node
+       ( 3
+       , Node (2, Node (1, Empty, Empty), Empty)
+       , Node (5, Empty, Node (7, Empty, Empty)) ));
+  [%test_eq: bool] (is_symmetric (construct [ 5; 3; 18; 1; 4; 12; 21 ])) true;
+  [%test_eq: bool] (is_symmetric (construct [ 3; 2; 5; 7; 4 ])) false
+;;
