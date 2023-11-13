@@ -54,3 +54,6 @@ let construct vals =
   in
   insert_all Empty vals
 ;;
+
+(* Problem 58 *)
+let sym_cbal_trees n = cbal_tree n |> List.filter ~f:is_symmetric

@@ -43,3 +43,18 @@ let%test_unit "construct" =
   [%test_eq: bool] (is_symmetric (construct [ 5; 3; 18; 1; 4; 12; 21 ])) true;
   [%test_eq: bool] (is_symmetric (construct [ 3; 2; 5; 7; 4 ])) false
 ;;
+
+(* Problem 58 *)
+let%test_unit "sym_cbal_trees" =
+  [%test_eq: char binary_tree list]
+    (sym_cbal_trees 5)
+    [ Node
+        ( 'x'
+        , Node ('x', Empty, Node ('x', Empty, Empty))
+        , Node ('x', Node ('x', Empty, Empty), Empty) )
+    ; Node
+        ( 'x'
+        , Node ('x', Node ('x', Empty, Empty), Empty)
+        , Node ('x', Empty, Node ('x', Empty, Empty)) )
+    ]
+;;
