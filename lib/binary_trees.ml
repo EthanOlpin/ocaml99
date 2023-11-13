@@ -3,24 +3,24 @@ open Base
 type 'a binary_tree =
   | Empty
   | Node of 'a * 'a binary_tree * 'a binary_tree
-[@@deriving sexp_of, compare]
+[@@deriving sexp_of, compare, equal]
 
 (* Problem 55 *)
+let tree_combine l r =
+  List.concat_map l ~f:(fun l -> List.map r ~f:(fun r -> Node ('x', l, r)))
+;;
+
 let rec cbal_tree n =
   if n = 0
   then [ Empty ]
+  else if n % 2 = 1
+  then (
+    let subtrees = cbal_tree (n / 2) in
+    tree_combine subtrees subtrees)
   else (
-    let combine l r =
-      List.concat_map l ~f:(fun l -> List.map r ~f:(fun r -> Node ('x', l, r)))
-    in
-    if n % 2 = 1
-    then (
-      let subtrees = cbal_tree (n / 2) in
-      combine subtrees subtrees)
-    else (
-      let subtrees_a = cbal_tree ((n / 2) - 1) in
-      let subtrees_b = cbal_tree (n / 2) in
-      combine subtrees_a subtrees_b @ combine subtrees_b subtrees_a))
+    let subtrees_a = cbal_tree ((n / 2) - 1) in
+    let subtrees_b = cbal_tree (n / 2) in
+    tree_combine subtrees_a subtrees_b @ tree_combine subtrees_b subtrees_a)
 ;;
 
 (* Problem 56 *)
@@ -57,3 +57,17 @@ let construct vals =
 
 (* Problem 58 *)
 let sym_cbal_trees n = cbal_tree n |> List.filter ~f:is_symmetric
+
+(* Problem 59 *)
+let rec hbal_tree n =
+  if n = 0
+  then [ Empty ]
+  else if n = 1
+  then [ Node ('x', Empty, Empty) ]
+  else (
+    let subtrees_a = hbal_tree (n - 1) in
+    let subtrees_b = hbal_tree (n - 2) in
+    tree_combine subtrees_a subtrees_a
+    @ tree_combine subtrees_a subtrees_b
+    @ tree_combine subtrees_b subtrees_a)
+;;

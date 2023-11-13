@@ -58,3 +58,28 @@ let%test_unit "sym_cbal_trees" =
         , Node ('x', Empty, Node ('x', Empty, Empty)) )
     ]
 ;;
+
+(* Problem 59 *)
+let%test_unit "hbal_tree" =
+  let t = hbal_tree 3 in
+  let x = 'x' in
+  [%test_eq: bool]
+    (List.mem
+       t
+       (Node
+          ( x
+          , Node (x, Node (x, Empty, Empty), Node (x, Empty, Empty))
+          , Node (x, Node (x, Empty, Empty), Node (x, Empty, Empty)) ))
+       ~equal:(equal_binary_tree Char.equal))
+    true;
+  [%test_eq: bool]
+    (List.mem
+       t
+       (Node
+          ( x
+          , Node (x, Node (x, Empty, Empty), Node (x, Empty, Empty))
+          , Node (x, Node (x, Empty, Empty), Empty) ))
+       ~equal:(equal_binary_tree Char.equal))
+    true;
+  [%test_eq: int] (List.length t) 15
+;;
