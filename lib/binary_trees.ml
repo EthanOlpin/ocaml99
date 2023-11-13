@@ -71,3 +71,11 @@ let rec hbal_tree n =
     @ tree_combine subtrees_a subtrees_b
     @ tree_combine subtrees_b subtrees_a)
 ;;
+
+(* Problem 61 *)
+let rec count_leaves tree =
+  match tree with
+  | Empty -> 0
+  | Node (_, Empty, Empty) -> 1
+  | Node (_, left, right) -> count_leaves left + count_leaves right
+;;

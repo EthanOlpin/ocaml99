@@ -83,3 +83,10 @@ let%test_unit "hbal_tree" =
     true;
   [%test_eq: int] (List.length t) 15
 ;;
+
+(* Problem 61 *)
+let%test_unit "count_leaves" =
+  let leaf = Node (0, Empty, Empty) in
+  [%test_eq: int] (count_leaves Empty) 0;
+  [%test_eq: int] (count_leaves (Node (0, leaf, Node (0, leaf, leaf)))) 3
+;;
