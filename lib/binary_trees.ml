@@ -87,3 +87,12 @@ let rec collect_leaves tree =
   | Node (x, Empty, Empty) -> [ x ]
   | Node (_, left, right) -> collect_leaves left @ collect_leaves right
 ;;
+
+(* Problem 62 *)
+let internals tree =
+  let rec aux acc = function
+    | Empty | Node (_, Empty, Empty) -> acc
+    | Node (x, left, right) -> aux (x :: aux acc right) left
+  in
+  aux [] tree
+;;

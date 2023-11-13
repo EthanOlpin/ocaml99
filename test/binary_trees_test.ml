@@ -84,18 +84,27 @@ let%test_unit "hbal_tree" =
   [%test_eq: int] (List.length t) 15
 ;;
 
+let example_tree =
+  Node
+    ( 'a'
+    , Node ('b', Node ('d', Empty, Empty), Node ('e', Empty, Empty))
+    , Node ('c', Empty, Node ('f', Node ('g', Empty, Empty), Empty)) )
+;;
+
 (* Problem 61 *)
 let%test_unit "count_leaves" =
-  let leaf = Node (0, Empty, Empty) in
   [%test_eq: int] (count_leaves Empty) 0;
-  [%test_eq: int] (count_leaves (Node (0, leaf, Node (0, leaf, leaf)))) 3
+  [%test_eq: int] (count_leaves example_tree) 3
 ;;
 
 (* Problem 61A *)
 let%test_unit "collect_leaves" =
-  let leaf x = Node (x, Empty, Empty) in
   [%test_eq: char list] (collect_leaves Empty) [];
-  [%test_eq: char list]
-    (collect_leaves (Node ('x', leaf 'd', Node ('x', leaf 'e', leaf 'g'))))
-    [ 'd'; 'e'; 'g' ]
+  [%test_eq: char list] (collect_leaves example_tree) [ 'd'; 'e'; 'g' ]
+;;
+
+(* Problem 62*)
+let%test_unit "internals" =
+  [%test_eq: char list] (internals (Node ('a', Empty, Empty))) [];
+  [%test_eq: char list] (internals example_tree) [ 'b'; 'a'; 'c'; 'f' ]
 ;;
