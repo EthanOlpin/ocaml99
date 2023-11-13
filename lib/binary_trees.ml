@@ -22,3 +22,17 @@ let rec cbal_tree n =
       let subtrees_b = cbal_tree (n / 2) in
       combine subtrees_a subtrees_b @ combine subtrees_b subtrees_a))
 ;;
+
+(* Problem 56 *)
+let is_symmetric tree =
+  let rec is_mirror tree_a tree_b =
+    match tree_a, tree_b with
+    | Empty, Empty -> true
+    | Node (_, a_left, a_right), Node (_, b_left, b_right) ->
+      is_mirror a_left b_right && is_mirror a_right b_left
+    | _ -> false
+  in
+  match tree with
+  | Node (_, left, right) -> is_mirror left right
+  | Empty -> true
+;;

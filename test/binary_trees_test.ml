@@ -24,3 +24,10 @@ let%test_unit "cbal_tree" =
     ];
   [%test_eq: int] (List.length (cbal_tree 40)) 524288
 ;;
+
+(* Problem 56 *)
+let%test_unit "is_symmetric" =
+  let leaf = Node (0, Empty, Empty) in
+  [%test_eq: bool] (is_symmetric (Node (0, leaf, Empty))) false;
+  [%test_eq: bool] (is_symmetric (Node (0, leaf, leaf))) true
+;;
