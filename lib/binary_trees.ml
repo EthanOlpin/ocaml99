@@ -79,3 +79,11 @@ let rec count_leaves tree =
   | Node (_, Empty, Empty) -> 1
   | Node (_, left, right) -> count_leaves left + count_leaves right
 ;;
+
+(* Problem 61A *)
+let rec collect_leaves tree =
+  match tree with
+  | Empty -> []
+  | Node (x, Empty, Empty) -> [ x ]
+  | Node (_, left, right) -> collect_leaves left @ collect_leaves right
+;;

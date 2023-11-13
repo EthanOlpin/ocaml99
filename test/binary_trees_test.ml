@@ -90,3 +90,12 @@ let%test_unit "count_leaves" =
   [%test_eq: int] (count_leaves Empty) 0;
   [%test_eq: int] (count_leaves (Node (0, leaf, Node (0, leaf, leaf)))) 3
 ;;
+
+(* Problem 61A *)
+let%test_unit "collect_leaves" =
+  let leaf x = Node (x, Empty, Empty) in
+  [%test_eq: char list] (collect_leaves Empty) [];
+  [%test_eq: char list]
+    (collect_leaves (Node ('x', leaf 'd', Node ('x', leaf 'e', leaf 'g'))))
+    [ 'd'; 'e'; 'g' ]
+;;
