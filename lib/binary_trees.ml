@@ -168,3 +168,49 @@ let at_level tree n =
   in
   aux tree 1 []
 ;;
+
+(* Problem 63 *)
+(* Referred to official solution *)
+let size tree =
+  let rec aux tree acc =
+    match tree with
+    | Node (_, l, r) -> aux l (acc + aux r 1)
+    | Empty -> acc
+  in
+  aux tree 0
+;;
+
+let is_complete_binary_tree tree =
+  let tree_size = size tree in
+  let rec aux node curr_address =
+    match node with
+    | Empty -> true
+    | Node (_, l, r) ->
+      curr_address <= tree_size
+      && aux l (2 * curr_address)
+      && aux r ((2 * curr_address) + 1)
+  in
+  aux tree 1
+;;
+
+let rec distribute vals nodes =
+  match vals, nodes with
+  | vals, [] -> List.map vals ~f:(fun x -> Node (x, Empty, Empty))
+  | x :: vals, [ l ] -> Node (x, l, Empty) :: distribute vals []
+  | x :: vals, l :: r :: nodes -> Node (x, l, r) :: distribute vals nodes
+  | _ -> failwith "Cannot distribute empty value set across nodes"
+;;
+
+let complete_binary_tree vals =
+  match vals with
+  | [] -> Empty
+  | vals ->
+    let rec integrate_level lvl vals =
+      match vals with
+      | [] -> []
+      | vals ->
+        let lvl_vals, rest = List.split_n vals ((lvl ** 2) + 1) in
+        distribute lvl_vals (integrate_level (lvl + 1) rest)
+    in
+    List.hd_exn (integrate_level 0 vals)
+;;

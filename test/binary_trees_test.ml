@@ -152,3 +152,23 @@ let%test_unit "at_level" =
   [%test_eq: char list] (at_level example_tree 2) [ 'b'; 'c' ];
   [%test_eq: char list] (at_level example_tree 5) []
 ;;
+
+(* Problem 63*)
+let%test_unit "size" = [%test_eq: int] (size example_tree) 7
+
+let%test "is_complete_binary_tree" =
+  is_complete_binary_tree
+    (Node
+       ( 1
+       , Node (2, Node (4, Empty, Empty), Node (5, Empty, Empty))
+       , Node (3, Node (6, Empty, Empty), Empty) ))
+;;
+
+let%test_unit "complete_binary_tree" =
+  [%test_eq: int binary_tree]
+    (complete_binary_tree [ 1; 2; 3; 4; 5; 6 ])
+    (Node
+       ( 1
+       , Node (2, Node (4, Empty, Empty), Node (5, Empty, Empty))
+       , Node (3, Node (6, Empty, Empty), Empty) ))
+;;
