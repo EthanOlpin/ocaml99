@@ -91,6 +91,44 @@ let example_tree =
     , Node ('c', Empty, Node ('f', Node ('g', Empty, Empty), Empty)) )
 ;;
 
+(* Problem 60*)
+let%test_unit "min_nodes" =
+  [%test_eq: int] (min_nodes 0) 0;
+  [%test_eq: int] (min_nodes 1) 1;
+  [%test_eq: int] (min_nodes 2) 2;
+  [%test_eq: int] (min_nodes 3) 4;
+  [%test_eq: int] (min_nodes 4) 7
+;;
+
+let%test_unit "min_height" =
+  [%test_eq: int] (min_height 0) 0;
+  [%test_eq: int] (min_height 1) 1;
+  [%test_eq: int] (min_height 2) 2;
+  [%test_eq: int] (min_height 3) 2;
+  [%test_eq: int] (min_height 4) 3
+;;
+
+let%test_unit "max_height" =
+  [%test_eq: int] (max_height 0) 0;
+  [%test_eq: int] (max_height 1) 1;
+  [%test_eq: int] (max_height 2) 2;
+  [%test_eq: int] (max_height 4) 3;
+  [%test_eq: int] (max_height 7) 4
+;;
+
+let%test_unit "hbal_tree_nodes" =
+  [%test_eq: int] (hbal_tree_nodes 15 |> List.length) 1553;
+  [%test_eq: char binary_tree list list]
+    (List.map [ 0; 1; 2; 3 ] ~f:hbal_tree_nodes)
+    [ [ Empty ]
+    ; [ Node ('x', Empty, Empty) ]
+    ; [ Node ('x', Node ('x', Empty, Empty), Empty)
+      ; Node ('x', Empty, Node ('x', Empty, Empty))
+      ]
+    ; [ Node ('x', Node ('x', Empty, Empty), Node ('x', Empty, Empty)) ]
+    ]
+;;
+
 (* Problem 61 *)
 let%test_unit "count_leaves" =
   [%test_eq: int] (count_leaves Empty) 0;

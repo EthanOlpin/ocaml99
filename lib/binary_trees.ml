@@ -72,6 +72,63 @@ let rec hbal_tree n =
     @ tree_combine subtrees_b subtrees_a)
 ;;
 
+(* Problem 60 *)
+(* Referred to official solution *)
+let max_nodes h = if h <= 0 then 0 else (2 ** h) - 1
+
+let min_nodes h =
+  if h <= 0
+  then 0
+  else (
+    let rec aux h prev_1 prev_2 =
+      if h <= 1 then prev_1 else aux (h - 1) (prev_1 + prev_2 + 1) prev_1
+    in
+    aux h 1 0)
+;;
+
+let min_height n = if n = 0 then 0 else Int.floor_log2 n + 1
+
+let max_height n =
+  let rec aux h prev_min_1 prev_min_2 =
+    if prev_min_1 > n
+    then h
+    else aux (h + 1) (prev_min_1 + prev_min_2 + 1) prev_min_1
+  in
+  aux 0 1 0
+;;
+
+let mirror = function
+  | Node (x, l, r) -> Some (Node (x, r, l))
+  | Empty -> None
+;;
+
+let hbal_tree_nodes n =
+  let rec hbal_trees_height_nodes h n =
+    assert (min_nodes h <= n && n <= max_nodes h);
+    if h = 0
+    then [ Empty ]
+    else (
+      let build_and_join_subtrees l_height r_height =
+        let min_n = max (min_nodes l_height) (n - 1 - max_nodes r_height) in
+        let max_n = min (max_nodes l_height) (n - 1 - min_nodes r_height) in
+        List.range ~stop:`inclusive min_n max_n
+        |> List.concat_map ~f:(fun curr_n ->
+          let ls = hbal_trees_height_nodes l_height curr_n in
+          let rs = hbal_trees_height_nodes r_height (n - 1 - curr_n) in
+          List.cartesian_product ls rs
+          |> List.map ~f:(fun (l, r) -> Node ('x', l, r)))
+      in
+      let nearly_unbalanced = build_and_join_subtrees (h - 1) (h - 2) in
+      let mirror_nearly_unbalanced =
+        List.filter_map nearly_unbalanced ~f:mirror
+      in
+      let perfectly_balanced = build_and_join_subtrees (h - 1) (h - 1) in
+      nearly_unbalanced @ mirror_nearly_unbalanced @ perfectly_balanced)
+  in
+  List.range ~stop:`inclusive (min_height n) (max_height n)
+  |> List.concat_map ~f:(fun h -> hbal_trees_height_nodes h n)
+;;
+
 (* Problem 61 *)
 let rec count_leaves tree =
   match tree with
