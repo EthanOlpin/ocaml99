@@ -208,3 +208,45 @@ let%test_unit "layout_binary_tree_1" =
                )
            , Empty ) ))
 ;;
+
+let%test_unit "layout_binary_tree_2" =
+  let example_layout_tree =
+    let leaf x = Node (x, Empty, Empty) in
+    Node
+      ( 'n'
+      , Node
+          ('k', Node ('c', leaf 'a', Node ('e', leaf 'd', leaf 'g')), leaf 'm')
+      , Node ('u', Node ('p', Empty, leaf 'q'), Empty) )
+  in
+  [%test_eq: (char * int * int) binary_tree]
+    (layout_binary_tree_2 example_layout_tree)
+    (Node
+       ( ('n', 15, 1)
+       , Node
+           ( ('k', 7, 2)
+           , Node
+               ( ('c', 3, 3)
+               , Node (('a', 1, 4), Empty, Empty)
+               , Node
+                   ( ('e', 5, 4)
+                   , Node (('d', 4, 5), Empty, Empty)
+                   , Node (('g', 6, 5), Empty, Empty) ) )
+           , Node (('m', 11, 3), Empty, Empty) )
+       , Node
+           ( ('u', 23, 2)
+           , Node (('p', 19, 3), Empty, Node (('q', 21, 4), Empty, Empty))
+           , Empty ) ));
+  let example2_layout_tree =
+    let leaf x = Node (x, Empty, Empty) in
+    Node ('n', Empty, Node ('u', Node ('p', Empty, leaf 'q'), Empty))
+  in
+  [%test_eq: (char * int * int) binary_tree]
+    (layout_binary_tree_2 example2_layout_tree)
+    (Node
+       ( ('n', 1, 1)
+       , Empty
+       , Node
+           ( ('u', 5, 2)
+           , Node (('p', 3, 3), Empty, Node (('q', 4, 4), Empty, Empty))
+           , Empty ) ))
+;;

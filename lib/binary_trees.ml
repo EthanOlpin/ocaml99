@@ -228,3 +228,32 @@ let layout_binary_tree_1 tree =
   in
   snd (position_nodes tree 1 1)
 ;;
+
+(* Problem 65 *)
+let rec tree_height = function
+  | Empty -> 0
+  | Node (_, l, r) -> 1 + max (tree_height l) (tree_height r)
+;;
+
+let layout_binary_tree_2 tree =
+  let left_width tree =
+    let rec left_depth depth = function
+      | Empty -> depth
+      | Node (_, l, _) -> left_depth (depth + 1) l
+    in
+    (2 ** (left_depth 1 tree - 1)) - 1
+  in
+  let height = tree_height tree in
+  let rec position_nodes offset depth = function
+    | Empty -> Empty
+    | Node (v, l, r) ->
+      let dist_to_child =
+        if height = depth then 0 else 2 ** (height - depth - 1)
+      in
+      let l' = position_nodes (offset - dist_to_child) (depth + 1) l in
+      let r' = position_nodes (offset + dist_to_child) (depth + 1) r in
+      Node ((v, offset, depth), l', r')
+  in
+  let left_width = left_width tree in
+  position_nodes left_width 1 tree
+;;
