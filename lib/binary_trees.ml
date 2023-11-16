@@ -214,3 +214,17 @@ let complete_binary_tree vals =
     in
     List.hd_exn (integrate_level 0 vals)
 ;;
+
+(* Problem 64 *)
+let layout_binary_tree_1 tree =
+  let rec position_nodes node offset depth =
+    match node with
+    | Empty -> offset, Empty
+    | Node (v, l, r) ->
+      let depth' = depth + 1 in
+      let l_offset, l' = position_nodes l offset depth' in
+      let r_offset, r' = position_nodes r (l_offset + 1) depth' in
+      r_offset, Node ((v, l_offset, depth), l', r')
+  in
+  snd (position_nodes tree 1 1)
+;;
