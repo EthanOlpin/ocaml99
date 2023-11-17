@@ -257,3 +257,51 @@ let layout_binary_tree_2 tree =
   let left_width = left_width tree in
   position_nodes left_width 1 tree
 ;;
+
+(* Problem 66 *)
+let rec merge_bounds a b =
+  let merge (al, ar) (bl, br) = min al bl, max ar br in
+  match a, b with
+  | a_hd :: a_rest, b_hd :: b_rest ->
+    merge a_hd b_hd :: merge_bounds a_rest b_rest
+  | a, [] -> a
+  | [], b -> b
+;;
+
+let rec max_overlap a b acc =
+  match a, b with
+  | (_, ar) :: a_rest, (bl, _) :: b_rest ->
+    max_overlap a_rest b_rest (max acc (1 + ar - bl))
+  | _, [] | [], _ -> acc
+;;
+
+let shift_bounds shift = List.map ~f:(fun (al, ar) -> al + shift, ar + shift)
+
+let layout_binary_tree_3 tree =
+  let rec get_spread offset = function
+    | Empty -> [], Empty
+    | Node (v, l, r) ->
+      let l_bounds, l' = get_spread (offset - 1) l in
+      let r_bounds, r' = get_spread (offset + 1) r in
+      let spread = max_overlap l_bounds r_bounds 0 in
+      let l_bounds = shift_bounds (-spread) l_bounds in
+      let r_bounds = shift_bounds spread r_bounds in
+      let bounds = (offset, offset) :: merge_bounds l_bounds r_bounds in
+      bounds, Node ((1 + spread, v), l', r')
+  in
+  let rec left_width acc = function
+    | Empty -> acc
+    | Node ((spread, _), l, _) -> left_width (acc + spread) l
+  in
+  let rec layout_tree offset depth = function
+    | Empty -> Empty
+    | Node ((spread, v), l, r) ->
+      let depth' = depth + 1 in
+      let l' = layout_tree (offset - spread) depth' l in
+      let r' = layout_tree (offset + spread) depth' r in
+      Node ((v, offset, depth), l', r')
+  in
+  let _, spread_tree = get_spread 0 tree in
+  let left_width = left_width 0 spread_tree in
+  layout_tree left_width 1 spread_tree
+;;
