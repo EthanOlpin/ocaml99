@@ -354,3 +354,21 @@ let inorder tree =
   in
   List.rev (aux [] tree)
 ;;
+
+(* Problem 69 *)
+let rec dotstring_of_tree = function
+  | Empty -> [ '.' ]
+  | Node (v, l, r) -> (v :: dotstring_of_tree l) @ dotstring_of_tree r
+;;
+
+let tree_of_docstring tree =
+  let rec aux = function
+    | [] -> failwith "Cannot parse tree from empty dotstring"
+    | '.' :: rest -> Empty, rest
+    | v :: rest ->
+      let l, rest = aux rest in
+      let r, rest = aux rest in
+      Node (v, l, r), rest
+  in
+  fst (aux tree)
+;;

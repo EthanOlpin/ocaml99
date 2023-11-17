@@ -333,3 +333,46 @@ let%test_unit "inorder" =
     (inorder example_layout_tree)
     [ 'd'; 'b'; 'e'; 'a'; 'c'; 'g'; 'f' ]
 ;;
+
+let%test_unit "dotstring_of_tree" =
+  [%test_eq: char list]
+    (dotstring_of_tree example_layout_tree)
+    [ 'a'
+    ; 'b'
+    ; 'd'
+    ; '.'
+    ; '.'
+    ; 'e'
+    ; '.'
+    ; '.'
+    ; 'c'
+    ; '.'
+    ; 'f'
+    ; 'g'
+    ; '.'
+    ; '.'
+    ; '.'
+    ]
+;;
+
+let%test_unit "tree_of_docstring" =
+  [%test_eq: char binary_tree]
+    (tree_of_docstring
+       [ 'a'
+       ; 'b'
+       ; 'd'
+       ; '.'
+       ; '.'
+       ; 'e'
+       ; '.'
+       ; '.'
+       ; 'c'
+       ; '.'
+       ; 'f'
+       ; 'g'
+       ; '.'
+       ; '.'
+       ; '.'
+       ])
+    example_layout_tree
+;;
