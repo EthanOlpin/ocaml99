@@ -340,3 +340,17 @@ let rec tree_of_string s =
       let l_s, r_s = String.(subo content ~len:i, subo content ~pos:(i + 1)) in
       Node (v, tree_of_string l_s, tree_of_string r_s)))
 ;;
+
+(* Problem 68 *)
+let rec preorder = function
+  | Empty -> []
+  | Node (v, l, r) -> (v :: preorder l) @ preorder r
+;;
+
+let inorder tree =
+  let rec aux acc = function
+    | Empty -> acc
+    | Node (v, l, r) -> aux (v :: aux acc l) r
+  in
+  List.rev (aux [] tree)
+;;

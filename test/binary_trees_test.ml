@@ -317,3 +317,19 @@ let%test_unit "tree_of_string" =
     (tree_of_string "a(b(d,e),c(,f(g,)))")
     example_layout_tree
 ;;
+
+(* Problem 68 *)
+let%test_unit "preorder" =
+  [%test_eq: int list]
+    (preorder (Node (1, Node (2, Empty, Empty), Empty)))
+    [ 1; 2 ];
+  [%test_eq: char list]
+    (preorder example_layout_tree)
+    [ 'a'; 'b'; 'd'; 'e'; 'c'; 'f'; 'g' ]
+;;
+
+let%test_unit "inorder" =
+  [%test_eq: char list]
+    (inorder example_layout_tree)
+    [ 'd'; 'b'; 'e'; 'a'; 'c'; 'g'; 'f' ]
+;;
