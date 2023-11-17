@@ -298,3 +298,22 @@ let%test_unit "layout_binary_tree_3" =
            , Empty
            , Node (('d', 6, 3), Node (('g', 5, 4), Empty, Empty), Empty) ) ))
 ;;
+
+(* Problem 67 *)
+let example_layout_tree =
+  let leaf x = Node (x, Empty, Empty) in
+  Node
+    ( 'a'
+    , Node ('b', leaf 'd', leaf 'e')
+    , Node ('c', Empty, Node ('f', leaf 'g', Empty)) )
+;;
+
+let%test_unit "string_of_tree" =
+  [%test_eq: string] (string_of_tree example_layout_tree) "a(b(d,e),c(,f(g,)))"
+;;
+
+let%test_unit "tree_of_string" =
+  [%test_eq: char binary_tree]
+    (tree_of_string "a(b(d,e),c(,f(g,)))")
+    example_layout_tree
+;;

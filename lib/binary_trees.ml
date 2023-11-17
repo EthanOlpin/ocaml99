@@ -305,3 +305,38 @@ let layout_binary_tree_3 tree =
   let left_width = left_width 0 spread_tree in
   layout_tree left_width 1 spread_tree
 ;;
+
+(* Problem 67 *)
+let rec string_of_tree = function
+  | Empty -> ""
+  | Node (v, Empty, Empty) -> String.of_char v
+  | Node (v, l, r) ->
+    Printf.sprintf "%c(%s,%s)" v (string_of_tree l) (string_of_tree r)
+;;
+
+let rec tree_of_string s =
+  if String.equal s ""
+  then Empty
+  else (
+    let v = String.get s 0 in
+    let len = String.length s in
+    if len = 1
+    then Node (v, Empty, Empty)
+    else (
+      let content = String.sub s ~pos:2 ~len:(len - 3) in
+      let i =
+        String.fold_until
+          content
+          ~init:(0, 0)
+          ~f:(fun (parens, i) ->
+            let i' = i + 1 in
+            function
+            | ',' when parens = 0 -> Stop i
+            | '(' -> Continue (parens + 1, i')
+            | ')' -> Continue (parens - 1, i')
+            | _ -> Continue (parens, i'))
+          ~finish:(fun _ -> failwith ("failed to parse node: " ^ s))
+      in
+      let l_s, r_s = String.(subo content ~len:i, subo content ~pos:(i + 1)) in
+      Node (v, tree_of_string l_s, tree_of_string r_s)))
+;;
